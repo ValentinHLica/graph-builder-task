@@ -8,8 +8,10 @@
 npm i && npm start
 ```
 
-3. ⚠️ **Warning** Do not use **_*http://localhost:3000/*_** (Imgur gives 429 error for some reason), instead open ***http://192.168.x.x:3000/***
+2. View on [localhost:3000](http://localhost:3000/)
 
 ## 🪣 Requirements
 
 ## 📝 Resources
+
+- [Building Recursive Components in React](https://www.youtube.com/watch?v=a5aumoJWbKk)
