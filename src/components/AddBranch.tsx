@@ -1,18 +1,41 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { BranchType } from "../interface/treeData";
 
 import styles from "../styles/components/add_branch.module.scss";
 
 type Props = {
   title: string;
-  onClick: (type: BranchType) => void;
+  depth: number;
   isEmpty?: boolean;
+  isStart?: boolean;
+  onClick: (type: BranchType) => void;
+  onChange?: (name: string) => void;
 };
 
-const AddBranch: FC<Props> = ({ onClick, title, isEmpty = false }) => {
+const AddBranch: FC<Props> = ({
+  title,
+  depth,
+  isEmpty = false,
+  isStart = false,
+  onClick,
+  onChange,
+}) => {
   return (
     <div className={styles.add}>
-      <p>{title}</p>
+      <p>
+        Depth: <strong>{depth}</strong>
+      </p>
+
+      {!isStart && (
+        <input
+          value={title}
+          onChange={(e) => {
+            if (onChange) {
+              onChange(e.target.value);
+            }
+          }}
+        />
+      )}
 
       {!isEmpty && (
         <div className={styles.add__actions}>

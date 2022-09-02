@@ -12,10 +12,7 @@ export type TreeStructure = {
     id: string;
     name: string;
     type: BranchType;
+    depth: number;
     subOptions: TreeStructure;
   };
 };
-
-export interface StateBranchData {
-  [x: string]: StateBranchData;
-}
