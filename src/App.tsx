@@ -1,5 +1,7 @@
 import { FC, useState } from "react";
 
+import JSONPretty from "react-json-pretty";
+
 import { TreeStructure } from "./interface/treeData";
 
 import Branch from "./components/Branch";
@@ -19,7 +21,7 @@ const App: FC = () => {
             stateBranchData={treeData}
           />
 
-          <pre>{JSON.stringify(treeData, null, 2)}</pre>
+          <JSONPretty id="json-pretty" data={treeData}></JSONPretty>
         </>
       ) : (
         <AddBranch
