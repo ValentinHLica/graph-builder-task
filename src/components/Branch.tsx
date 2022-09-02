@@ -1,22 +1,48 @@
 import { FC } from "react";
 
-import { StateBranchData, TreeBranch } from "../interface/treeData";
+import { TreeStructure, BranchType } from "../interface/treeData";
+import AddBranch from "./AddBranch";
 
 const Branch: FC<{
-  branchData: TreeBranch[];
-  stateBranchData: StateBranchData;
-  onChange: (data: StateBranchData) => void;
-}> = ({ branchData, onChange, stateBranchData }) => {
-  const handleCheckboxClicked = (branchId: string) => {
-    // is currently selected
-    if (stateBranchData[branchId]) {
-      // remove selected key from options list
-      delete stateBranchData[branchId];
+  onChange: (data: TreeStructure) => void;
+  stateBranchData: TreeStructure;
+}> = ({ onChange, stateBranchData }) => {
+  const handleCheckboxClicked = (branchId: string, type: BranchType) => {
+    const newData: TreeStructure = {};
+
+    if (type === "tool") {
+      const id = Math.random().toString();
+
+      newData[id] = {
+        id,
+        name: Math.random().toString(),
+        subOptions: {},
+        type,
+      };
     } else {
-      // is not currently selected
-      // Add selected key to optionsList
-      stateBranchData[branchId] = {};
+      for (let i = 0; i < 2; i++) {
+        const id = Math.random().toString();
+
+        newData[id] = {
+          id,
+          name: Math.random().toString(),
+          subOptions: {},
+          type,
+        };
+      }
     }
+
+    console.log(newData);
+
+    stateBranchData[branchId].subOptions = newData;
+    //   type === "tool"
+    //     ? {
+    //         id: Math.random().toString(),
+    //         name: Math.random().toString(),
+    //         subOptions: {},
+    //         type,
+    //       }
+    //     : {};
 
     // call onChange function given by parent
     onChange(stateBranchData);
@@ -24,37 +50,36 @@ const Branch: FC<{
 
   const handleSubOptionsListChange = (
     branchId: string,
-    subSelections: StateBranchData
+    subSelections: TreeStructure
   ) => {
     // add sub selections to current optionId
-    stateBranchData[branchId] = subSelections;
+    // stateBranchData[branchId] = subSelections;
     // call onChange function given by parent
     onChange(stateBranchData);
   };
 
   return (
     <div>
-      {branchData.map((branch, index) => (
+      {Object.values(stateBranchData).map((branch, index) => (
         <ul key={index}>
-          <button
-            // disabled={!!stateBranchData[branch.id]}
-            onClick={() => {
-              handleCheckboxClicked(branch.id);
+          <AddBranch
+            title={branch.name}
+            onClick={(type) => {
+              handleCheckboxClicked(branch.id, type);
             }}
-          >
-            {branch.name}
-          </button>
+            isEmpty={Object.values(branch.subOptions).length > 0}
+          />
 
           {/* Base Case */}
-          {branch.subOptions.length > 0 && stateBranchData[branch.id] && (
-            <Branch
-              branchData={branch.subOptions}
-              stateBranchData={stateBranchData[branch.id]}
-              onChange={(subSelections) =>
-                handleSubOptionsListChange(branch.id, subSelections)
-              }
-            />
-          )}
+          {Object.values(branch.subOptions).length > 0 &&
+            stateBranchData[branch.id] && (
+              <Branch
+                stateBranchData={branch.subOptions}
+                onChange={(subSelections) =>
+                  handleSubOptionsListChange(branch.id, subSelections)
+                }
+              />
+            )}
         </ul>
       ))}
     </div>

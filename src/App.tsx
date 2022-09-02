@@ -1,20 +1,51 @@
-import { FC, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 
-import { StateBranchData, TreeBranch } from "./interface/treeData";
+import { TreeStructure, TreeBranch } from "./interface/treeData";
 import treeDataJson from "./data/treeData.json";
 
 import Branch from "./components/Branch";
+import AddBranch from "./components/AddBranch";
+import { structureTreeData } from "./utils/helper";
 
 const App: FC = () => {
-  const [treeData, setTreeData] = useState<StateBranchData>({});
+  const [treeData, setTreeData] = useState<TreeStructure>({});
+
+  const structureTree = useCallback((data: TreeBranch[]) => {
+    return structureTreeData(data);
+  }, []);
+
+  useEffect(() => {
+    if (treeDataJson.length > 0) {
+      setTreeData(structureTree(treeDataJson as TreeBranch[]));
+    }
+  }, [structureTree]);
 
   return (
     <div>
-      <Branch
-        branchData={treeDataJson as TreeBranch[]}
-        onChange={(selectedOptions) => setTreeData({ ...selectedOptions })}
-        stateBranchData={treeData}
-      />
+      {Object.keys(treeData).length > 0 ? (
+        <Branch
+          onChange={(selectedOptions) => setTreeData({ ...selectedOptions })}
+          stateBranchData={treeData}
+        />
+      ) : (
+        <AddBranch
+          onClick={() => {
+            const id = Math.random().toString();
+
+            setTreeData(
+              structureTree([
+                {
+                  name: id,
+                  id,
+                  type: "tool",
+                  subOptions: [],
+                },
+              ])
+            );
+          }}
+          title="Add Branch"
+        />
+      )}
     </div>
   );
 };

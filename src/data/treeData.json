@@ -2,59 +2,7 @@
   {
     "name": "Pepperoni",
     "id": "pepperoni-id",
-    "type": "crossroad",
-    "subOptions": [
-      {
-        "name": "Spicy",
-        "id": "spicy-id",
-        "type": "tool",
-        "subOptions": []
-      },
-      {
-        "name": "Regular",
-        "id": "regular-id",
-        "type": "tool",
-        "subOptions": []
-      }
-    ]
-  },
-  {
-    "name": "Chicken",
-    "id": "chicken-id",
     "type": "tool",
-    "subOptions": [
-      {
-        "name": "Buffalo",
-        "id": "buffalo-id",
-        "type": "crossroad",
-        "subOptions": [
-          {
-            "name": "Mild",
-            "id": "mild-id",
-            "type": "tool",
-            "subOptions": []
-          },
-          {
-            "name": "Hot",
-            "id": "hot-id",
-            "type": "crossroad",
-            "subOptions": [
-              {
-                "name": "Jalapeño",
-                "id": "jalapeno-id",
-                "type": "tool",
-                "subOptions": []
-              },
-              {
-                "name": "Cayenne",
-                "id": "cayenne-id",
-                "type": "tool",
-                "subOptions": []
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "subOptions": []
   }
 ]

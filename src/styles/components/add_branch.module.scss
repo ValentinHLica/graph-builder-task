@@ -1,0 +1,16 @@
+.add {
+  padding: 5px;
+  border: 1px solid #eee;
+  width: fit-content;
+
+  .add__actions {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-top: 5px;
+
+    button {
+      cursor: pointer;
+    }
+  }
+}
