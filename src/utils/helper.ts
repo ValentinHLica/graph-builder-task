@@ -1,22 +1,6 @@
-import { BranchType, TreeBranch, TreeStructure } from "../interface/treeData";
+import { v4 as uuid } from "uuid";
 
-export const structureTreeData = (treeData: TreeBranch[]): TreeStructure => {
-  let depth: number = -1;
-
-  return treeData.reduce((prevData, data) => {
-    depth++;
-
-    return {
-      ...prevData,
-      [data.id]: {
-        ...data,
-        depth: depth,
-        subOptions:
-          data.subOptions.length > 0 ? structureTreeData(data.subOptions) : {},
-      },
-    };
-  }, {});
-};
+import { BranchType, TreeStructure } from "../interface/treeData";
 
 export const createNewBranch = (type: BranchType, depth: number) => {
   const newData: TreeStructure = {};
@@ -24,7 +8,7 @@ export const createNewBranch = (type: BranchType, depth: number) => {
   const loopCount: number = type === "tool" ? 1 : 2;
 
   for (let i = 0; i < loopCount; i++) {
-    const id = Math.random().toString();
+    const id = uuid().slice(0, 8);
 
     newData[id] = {
       id,

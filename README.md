@@ -10,8 +10,6 @@ npm i && npm start
 
 2. View on [localhost:3000](http://localhost:3000/)
 
-## 🪣 Requirements
-
 ## 📝 Resources
 
 - [Building Recursive Components in React](https://www.youtube.com/watch?v=a5aumoJWbKk)

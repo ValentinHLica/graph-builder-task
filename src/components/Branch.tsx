@@ -1,8 +1,10 @@
 import { FC } from "react";
 
 import { TreeStructure, BranchType } from "../interface/treeData";
-import { createNewBranch } from "../utils/helper";
+
 import AddBranch from "./AddBranch";
+
+import { createNewBranch } from "../utils/helper";
 
 const Branch: FC<{
   onChange: (data: TreeStructure) => void;

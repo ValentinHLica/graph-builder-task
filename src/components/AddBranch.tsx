@@ -1,13 +1,13 @@
 import { FC } from "react";
+
 import { BranchType } from "../interface/treeData";
 
 import styles from "../styles/components/add_branch.module.scss";
 
 type Props = {
-  title: string;
+  title?: string;
   depth: number;
   isEmpty?: boolean;
-  isStart?: boolean;
   onClick: (type: BranchType) => void;
   onChange?: (name: string) => void;
 };
@@ -16,7 +16,6 @@ const AddBranch: FC<Props> = ({
   title,
   depth,
   isEmpty = false,
-  isStart = false,
   onClick,
   onChange,
 }) => {
@@ -26,7 +25,7 @@ const AddBranch: FC<Props> = ({
         Depth: <strong>{depth}</strong>
       </p>
 
-      {!isStart && (
+      {title !== undefined && (
         <input
           value={title}
           onChange={(e) => {
